@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página Personal - Pinto</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link rel="icon" href="imagenes/logo.jpg" type="image/jpeg">
+</head>
+<body>
+
+  <header>
+    <h1>WUENAS Soy Víctor Pinto!</h1>
+    <p>Estudiante de 6to Perito en Desarrollo de Contenido Digital y Software</p>
+  </header>
+
+  <!-- Presentación con imagen -->
+  <section class="presentacion">
+    <img src="imagenes/victor.jpg" alt="Foto de perfil de Pinto">
+    <div class="presentacion-texto">
+      <p>
+        Este sitio web es mi espacio personal donde comparto mis intereses, habilidades y lo que he aprendido.
+        Me encanta la tecnología, la creatividad y siempre estoy listo para aprender algo nuevo.
+      </p>
+      <p>¡Gracias por visitar!</p>
+    </div>
+  </section>
+
+  <!-- Inspiración -->
+  <section class="inspiracion">
+  <h2>Mi Inspiración</h2>
+  <p>Estos animes me recuerdan que con esfuerzo y perseverancia, uno puede superar cualquier obstáculo.</p>
+  <div class="imagenes-anime-nombres">
+    <div class="anime-item">
+      <h3>Naruto</h3>
+      <img src="imagenes/Naruto.jpg" alt="Naruto">
+    </div>
+    <div class="anime-item">
+      <h3>Black Clover</h3>
+      <img src="imagenes/black-clover-poster.jpg" alt="Black Clover">
+    </div>
+    <div class="anime-item">
+      <h3>Gachakuta</h3>
+      <img src="imagenes/Gachiakuta.jpeg" alt="Gachakuta">
+    </div>
+  </div>
+</section>
+
+
+  <!-- Hobbies -->
+  <section class="hobbies">
+    <h2>Mis hobbies favoritos</h2>
+    <div class="contenedor-hobbies">
+      <div class="hobby">⚽ Jugar fútbol</div>
+      <div class="hobby">🎮 Videojuegos</div>
+      <div class="hobby">👨‍💻 Programar</div>
+      <div class="hobby">📖 Ver anime</div>
+    </div>
+  </section>
+
+  <!-- Video -->
+  <section class="video-inspiracion">
+  <h2>Mi Inspiración</h2>
+  <p>Estos animes me recuerdan que con esfuerzo y perseverancia, uno puede superar cualquier obstáculo.</p>
+  <a href="https://youtu.be/IW6fjgpck9c?si=SXchHzaeBOGwPRth" target="_blank">
+  <img src="https://img.youtube.com/vi/IW6fjgpck9c/0.jpg" alt="TODA LA HISTORIA DESPUÉS DEL ANIME DE BLACK CLOVER - PARTE 1" class="miniatura-video">
+</a>
+
+</section>
+
+
+  <!-- Formulario de opinión -->
+  <section class="opinion">
+    <h2>¿Qué piensas de mí?</h2>
+    <form>
+      <input type="text" placeholder="Tu nombre" required>
+      <textarea placeholder="Escribe tu opinión..." required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  
+<section class="juego">
+  <h2>Mini juego</h2>
+  <canvas id="dinoCanvas" width="600" height="200"></canvas>
+  <p>Puntuación: <span id="score">0</span></p>
+  <p>Presiona espacio para saltar</p>
+  <p>Presiona R para reintentar</p>
+</section>
+
+<script>
+  const canvas = document.getElementById("dinoCanvas");
+  const ctx = canvas.getContext("2d");
+  const scoreEl = document.getElementById("score");
+
+  // Ajustar el tamaño del canvas según el dispositivo
+  function ajustarCanvas() {
+    const ratio = 600 / 200; // relación de aspecto original
+    const visibleWidth = canvas.parentElement.offsetWidth;
+    canvas.width = visibleWidth;
+    canvas.height = visibleWidth / ratio;
+  }
+
+  window.addEventListener("resize", ajustarCanvas);
+  ajustarCanvas();
+
+  let dino, obstacles, frame, score, gameOver;
+
+  function inicializarJuego() {
+    dino = {
+      x: 50,
+      y: canvas.height - 50,
+      w: 40,
+      h: 40,
+      vy: 0,
+      gravity: 1.5,
+      jump: -18,
+      grounded: true
+    };
+    obstacles = [];
+    frame = 0;
+    score = 0;
+    gameOver = false;
+    scoreEl.textContent = 0;
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" && dino.grounded && !gameOver) {
+      dino.vy = dino.jump;
+      dino.grounded = false;
+    }
+
+    if (e.code === "KeyR" && gameOver) {
+      inicializarJuego();
+    }
+  });
+
+  function drawDino() {
+    ctx.fillStyle = "#7fdbff";
+    ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
+  }
+
+  function drawObstacles() {
+    ctx.fillStyle = "#44475a";
+    obstacles.forEach(obs => {
+      ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+    });
+  }
+
+  function updateDino() {
+    dino.y += dino.vy;
+    dino.vy += dino.gravity;
+
+    const groundY = canvas.height - 10 - dino.h;
+
+    if (dino.y >= groundY) {
+      dino.y = groundY;
+      dino.vy = 0;
+      dino.grounded = true;
+    }
+  }
+
+  function updateObstacles() {
+    if (frame % 90 === 0) {
+      const h = 20 + Math.random() * 25;
+      obstacles.push({ x: canvas.width, y: canvas.height - 10 - h, w: 20, h });
+    }
+    obstacles.forEach(obs => obs.x -= 4);
+    if (obstacles.length && obstacles[0].x + obstacles[0].w < 0) {
+      obstacles.shift();
+    }
+  }
+
+  function checkCollision() {
+    return obstacles.some(obs =>
+      dino.x < obs.x + obs.w &&
+      dino.x + dino.w > obs.x &&
+      dino.y < obs.y + obs.h &&
+      dino.y + dino.h > obs.y
+    );
+  }
+
+  function updateScore() {
+    score++;
+    scoreEl.textContent = score;
+  }
+
+  function mostrarGameOver() {
+    ctx.fillStyle = "#ff5555";
+    ctx.font = "30px sans-serif";
+    ctx.fillText("¡GAME OVER!", canvas.width / 2 - 90, 100);
+    ctx.font = "16px sans-serif";
+    ctx.fillText("Presiona R para reiniciar", canvas.width / 2 - 110, 130);
+  }
+
+  function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Suelo
+    ctx.fillStyle = "#999";
+    ctx.fillRect(0, canvas.height - 10, canvas.width, 10);
+
+    if (!gameOver) {
+      drawDino();
+      drawObstacles();
+      updateDino();
+      updateObstacles();
+
+      if (frame % 10 === 0) updateScore();
+
+      if (checkCollision()) {
+        gameOver = true;
+        mostrarGameOver();
+      }
+    } else {
+      drawDino();
+      drawObstacles();
+      mostrarGameOver();
+    }
+
+    frame++;
+    requestAnimationFrame(gameLoop);
+  }
+
+  inicializarJuego();
+  gameLoop();
+</script>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-info">
+      <img src="imagenes/logo.jpg" alt="Imagen decorativa pie">
+      <div>
+        <p><strong>Nombre:</strong> Víctor Manuel Pinto Morales</p>
+        <p><strong>Carrera:</strong> Desarrollo de Contenido Digital y Software</p>
+        <p><strong>Fecha:</strong> 22 de julio de 2025</p>
+        <p>© 2025 Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

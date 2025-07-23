@@ -1,0 +1,277 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #1c1c1e;
+  color: #e5e5e5;
+  text-align: center;
+}
+
+/* Header */
+header {
+  background-color: #292b2f;
+  padding: 2rem;
+  color: #7fdbff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+header h1 {
+  font-size: 2.5rem;
+}
+
+/* Presentación */
+.presentacion {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #222;
+}
+
+.presentacion img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.presentacion-texto {
+  max-width: 500px;
+  text-align: left;
+}
+
+/* Inspiración */
+.inspiracion {
+  background-color: #1f1f2e;
+  padding: 2rem;
+}
+
+.imagenes-anime-nombres {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.anime-item {
+  text-align: center;
+  max-width: 220px;
+}
+
+.anime-item h3 {
+  color: #7fdbff;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  text-shadow: 0 0 5px #53c7ff;
+  font-size: 1.3rem;
+}
+
+.anime-item img {
+  width: 220px;
+  height: 320px;
+  border-radius: 12px;
+}
+
+/* Hobbies */
+.hobbies {
+  background-color: #282a36;
+  padding: 2rem;
+}
+
+.contenedor-hobbies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.hobby {
+  background-color: #44475a;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Video */
+.video {
+  background-color: #1e1e2e;
+  padding: 2rem;
+}
+
+.video iframe {
+  width: 80%;
+  max-width: 560px;
+  height: 315px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 0 12px rgba(0,0,0,0.6);
+}
+
+.miniatura-video {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(127, 219, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.miniatura-video:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(127, 219, 255, 0.5);
+}
+
+/* Formulario */
+.opinion {
+  padding: 2rem;
+  background-color: #292b2f;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+form input,
+form textarea {
+  width: 90%;
+  max-width: 400px;
+  background-color: #222;
+  color: #e5e5e5;
+  border: 3px solid #7fdbff;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  box-shadow: 0 0 12px #7fdbff70;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+  outline: none;
+  border-color: #53c7ff;
+  box-shadow: 0 0 20px #53c7ff;
+  background-color: #1a1a1a;
+}
+
+form button {
+  background-color: #7fdbff;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 15px #7fdbff80;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form button:hover {
+  background-color: #53c7ff;
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #53c7ff;
+}
+
+/* Footer */
+footer {
+  background-color: #1c1c1c;
+  color: #aaa;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.footer-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-info img {
+  width: 100px;
+  border-radius: 10px;
+}
+
+/* Juego */
+.juego {
+  background-color: #1f1f2e;
+  padding: 2rem;
+  text-align: center;
+  color: #e5e5e5;
+}
+
+canvas {
+  background-color: #080808;
+  border: 3px solid #7fdbff;
+  box-shadow: 0 0 15px #7fdbff70;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  aspect-ratio: 3 / 1;
+}
+
+/* Imagen general neon y hover */
+img {
+  border: 3px solid #7fdbff;
+  box-shadow: 0 0 15px #7fdbff70;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  object-fit: cover;
+}
+
+img:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 25px #7fdbff;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  body {
+    padding: 0 1rem;
+  }
+
+  .presentacion {
+    flex-direction: column;
+  }
+
+  .presentacion-texto {
+    text-align: center;
+  }
+
+  .footer-info {
+    flex-direction: column;
+  }
+
+  .video iframe {
+    width: 100%;
+    height: auto;
+  }
+
+  canvas {
+    width: 95%;
+    max-width: 95%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  canvas {
+    width: 90%;
+    max-width: 500px;
+  }
+}
